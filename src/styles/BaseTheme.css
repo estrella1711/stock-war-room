@@ -1,0 +1,35 @@
+
+  :root {
+          /* 主題色票 */
+          --bx-white: #F0F8FF;      
+          --bx-pale-blue: #5CA4DA;  
+          --bx-deep-blue: #1E468C;  
+          --bx-red: #C13A45;        
+          --bx-green: #96B737; 
+          --bx-text-main: #334155;
+          --bx-gold: #FFD700;
+        }
+
+        /* 基礎背景 */
+        .theme-base {
+          background-color: var(--bx-white);
+          color: var(--bx-text-main);
+        }
+
+        /* 專業模式指示器 (單純紅色) */
+        .tab-indicator-simple {
+            background-color: var(--bx-red);
+        }
+        
+        /* 輔助 CSS 類別 (通用) */
+        .bg-theme-deep { background-color: var(--bx-deep-blue); }
+        .text-theme-deep { color: var(--bx-deep-blue); }
+        .text-theme-pale { color: var(--bx-pale-blue); }
+        .border-theme-pale { border-color: var(--bx-pale-blue); }
+        .text-theme-red { color: var(--bx-red); }
+        .bg-theme-red-light { background-color: rgba(193, 58, 69, 0.1); }
+        .border-theme-red { border-color: rgba(193, 58, 69, 0.2); }
+        .text-theme-green { color: var(--bx-green); }
+       .bg-theme-green-light { background-color: rgba(150, 183, 55, 0.15); }
+        .border-theme-green { border-color: rgba(150, 183, 55, 0.3); }
+        .text-theme-gold { color: var(--bx-gold); }
