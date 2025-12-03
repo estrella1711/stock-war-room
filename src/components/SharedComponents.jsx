@@ -53,7 +53,7 @@ export const InputGroup = ({ label, value, setValue, placeholder, theme = "blue"
 export const EmptyState = ({ text, isXmasMode }) => (
   <div className="flex flex-col items-center justify-center h-56 text-slate-300">
     <div className="bg-slate-50 p-6 rounded-full mb-4 animate-pulse relative">
-      <RefreshCcw size={32} className="text-slate-200" />
+      <Rabbit size={32} className="text-slate-200" />
       {isXmasMode ? <div className="absolute -top-1 -right-1 text-theme-red opacity-50"><Gift size={16} /></div> : <div className="absolute -top-1 -right-1 text-orange-400 opacity-50"><Carrot size={16} /></div>}
     </div>
     <p className="text-sm font-medium tracking-wide flex items-center gap-2">
