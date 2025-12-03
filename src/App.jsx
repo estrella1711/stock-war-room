@@ -7,7 +7,8 @@ import {
   RefreshCcw, 
   PieChart,
   Target,
-  Wallet
+  Wallet,
+  Eraser // 新增橡皮擦圖示
 } from 'lucide-react';
 
 const App = () => {
@@ -16,22 +17,18 @@ const App = () => {
 
   return (
     <>
-      {/* [獨立主題 CSS 設定] 
-        主題名稱: BlueXmas
-        日後若要更改顏色，只需調整這裡的 HEX 代碼即可。
-      */}
+      {/* [獨立主題 CSS 設定] */}
       <style>{`
         :root {
-          /* 主題色票 (由 CMYK 轉換) */
-          --bx-white: #F0F8FF;      /* C3 M0 Y0 K0 - 背景底色 */
-          --bx-pale-blue: #5CA4DA;  /* C50 M20 Y0 K0 - 強調色/按鈕 */
-          --bx-deep-blue: #1E468C;  /* C100 M68 Y10 K0 - 標題/深色文字 */
-          --bx-red: #C13A45;        /* C20 M86 Y63 K0 - 股票漲/停利 */
+          /* 主題色票 */
+          --bx-white: #F0F8FF;      
+          --bx-pale-blue: #5CA4DA;  
+          --bx-deep-blue: #1E468C;  
+          --bx-red: #C13A45;        
           
-          /* 輔助色 (保留綠色作為股票跌/停損，調整為搭配 BlueXmas 的色調) */
-          --bx-green: #10B981;      /* 股票跌/停損 */
-          --bx-text-main: #334155;  /* 主要內文灰 */
-          --bx-text-sub: #94a3b8;   /* 次要文字灰 */
+          /* 輔助色 */
+          --bx-green: #10B981;      
+          --bx-text-main: #334155;  
         }
 
         /* 全域樣式應用 */
@@ -43,7 +40,6 @@ const App = () => {
         .bg-theme-deep { background-color: var(--bx-deep-blue); }
         .text-theme-deep { color: var(--bx-deep-blue); }
         
-        .bg-theme-pale { background-color: var(--bx-pale-blue); }
         .text-theme-pale { color: var(--bx-pale-blue); }
         .border-theme-pale { border-color: var(--bx-pale-blue); }
 
@@ -56,31 +52,22 @@ const App = () => {
         .border-theme-green { border-color: rgba(16, 185, 129, 0.2); }
       `}</style>
 
-      {/* 修改版面結構：使用 flex-col 搭配 flex-1 確保卡片位於視覺正中心，footer 位於底部 */}
+      {/* 版面結構：卡片置中 (min-h-screen + flex + justify-center) */}
       <div className="theme-blue-xmas min-h-screen w-full flex flex-col transition-colors duration-300">
         
-        {/* 卡片置中容器 */}
         <div className="flex-1 flex items-center justify-center p-4 w-full">
-          {/* Main Container - RWD 設定 
-              w-full: 手機版滿寬
-              max-w-lg: 平板/桌機版限制最大寬度 (約 512px)，比原本 md 更寬一點以適應現代螢幕
-              rounded-3xl: 更圓潤的邊角，符合現代 App 風格
-          */}
           <div className="w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col">
             
-            {/* Header Title - 改為白色背景 */}
-            <div className="bg-white p-6 text-center shadow-sm z-10">
+            {/* Header: 移除副標題 */}
+            <div className="bg-white pt-6 pb-4 text-center shadow-sm z-10">
               <h1 className="text-2xl font-bold text-theme-deep flex items-center justify-center gap-3 tracking-wide">
                 <TrendingUp className="text-theme-pale" size={28} /> 
                 股票風險戰情室
               </h1>
-              <p className="text-slate-400 text-sm mt-2 opacity-80 font-light">
-                BlueXmas Theme • Risk Control
-              </p>
             </div>
 
-            {/* Navigation Tabs - 改為淺藍色背景 */}
-            <div className="flex bg-theme-pale">
+            {/* Navigation Tabs: 移除背景色，改用線條樣式 */}
+            <div className="flex bg-white border-b border-slate-100">
               <TabButton 
                 isActive={activeTab === 'risk'} 
                 onClick={() => setActiveTab('risk')} 
@@ -111,7 +98,6 @@ const App = () => {
           </div>
         </div>
         
-        {/* Footer 置於底部 */}
         <p className="pb-6 text-slate-400 text-xs text-center font-light tracking-wider w-full">
           投資一定有風險，計算結果僅供參考<br/>盈虧自負，請嚴格執行紀律
         </p>
@@ -120,23 +106,26 @@ const App = () => {
   );
 };
 
-// --- 元件: Tab 按鈕 ---
+// --- 元件: Tab 按鈕 (修改：選中時顏色改為紅色) ---
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button 
     onClick={onClick}
-    className={`flex-1 py-4 text-sm font-bold flex flex-col items-center gap-1.5 transition-all duration-300 relative overflow-hidden ${
+    className={`flex-1 py-4 text-sm font-bold flex flex-col items-center gap-1.5 transition-all duration-300 relative ${
       isActive 
-        ? 'bg-white text-theme-pale' // 選取時：白色背景、淺藍字
-        : 'text-blue-50 hover:text-white hover:bg-white/10' // 未選取：(淺藍背景)、白色字
+        ? 'text-theme-red' // 選取時：改成紅色 (原本是 text-theme-pale)
+        : 'text-slate-400 hover:text-slate-600' // 未選取：灰字
     }`}
   >
-    {/* 移除原本的底部線條，讓選取狀態直接透過白色背景呈現 */}
+    {/* 底部線條指示器：顏色改成紅色 */}
+    {isActive && (
+      <div className="absolute bottom-0 left-0 w-full h-[3px] bg-theme-red rounded-t-full" />
+    )}
     <span>{icon}</span>
     {label}
   </button>
 );
 
-// --- 功能 1: 原始的風險報酬計算機 ---
+// --- 功能 1: 風險報酬計算機 (新增重置按鈕) ---
 const RiskCalculator = () => {
   const [entryPrice, setEntryPrice] = useState('');
   const [stopLoss, setStopLoss] = useState('');
@@ -148,6 +137,13 @@ const RiskCalculator = () => {
   useEffect(() => {
     calculate();
   }, [entryPrice, stopLoss, takeProfit]);
+
+  const handleReset = () => {
+    setEntryPrice('');
+    setStopLoss('');
+    setTakeProfit('');
+    setResults(null);
+  };
 
   const calculate = () => {
     const entry = parseFloat(entryPrice);
@@ -161,7 +157,6 @@ const RiskCalculator = () => {
 
     let riskAmt = 0, rewardAmt = 0, currentDirection = 'long';
 
-    // 判斷方向
     if (tp > entry && entry > sl) {
       currentDirection = 'long';
       riskAmt = entry - sl;
@@ -187,7 +182,6 @@ const RiskCalculator = () => {
       rrRatio: rrRatio.toFixed(2)
     });
 
-    // 簡單建議
     if (riskPct > 10) setAdvice("⚠️ 風險 > 10%，部位請縮小。");
     else if (rrRatio < 1) setAdvice("❌ 損益比 < 1，不建議進場。");
     else if (rrRatio >= 3) setAdvice("🚀 損益比 > 3，優質交易。");
@@ -196,8 +190,23 @@ const RiskCalculator = () => {
 
   return (
     <div className="p-6 md:p-8 space-y-6 animate-in fade-in zoom-in duration-300">
-      <div className="space-y-5">
+      <div className="space-y-5 relative">
+        
+        {/* 新增：右上角清除按鈕 */}
+        <div className="flex justify-between items-end mb-2">
+            <span className="text-sm font-bold text-slate-400">交易設定</span>
+            <button 
+              onClick={handleReset}
+              className="text-slate-300 hover:text-theme-red transition-colors p-1"
+              title="清除重置"
+            >
+              <Eraser size={20} />
+            </button>
+        </div>
+
         <InputGroup label="進場價" value={entryPrice} setValue={setEntryPrice} placeholder="100" />
+        
+        {/* 停損價與停利價：確保在同一行 (Grid Columns 2) */}
         <div className="grid grid-cols-2 gap-5">
           <InputGroup label="停損價" value={stopLoss} setValue={setStopLoss} theme="green" placeholder="90" />
           <InputGroup label="停利價" value={takeProfit} setValue={setTakeProfit} theme="red" placeholder="120" />
@@ -243,12 +252,12 @@ const RiskCalculator = () => {
   );
 };
 
-// --- 功能 2: 資金分配計算機 (30% 原則) ---
+// --- 功能 2: 資金分配計算機 (優化顯示區塊) ---
 const PositionCalculator = () => {
   const [capital, setCapital] = useState('');
   const [price, setPrice] = useState('');
   
-  const targetPercent = 0.30; // 30%
+  const targetPercent = 0.30; 
   const investAmt = capital ? parseFloat(capital) * targetPercent : 0;
   const shares = (price && investAmt) ? Math.floor(investAmt / parseFloat(price)) : 0;
 
@@ -261,25 +270,30 @@ const PositionCalculator = () => {
 
       {capital && price ? (
         <div className="space-y-4">
-          <div className="bg-theme-pale/10 p-6 rounded-2xl border border-theme-pale/30 text-center">
-            <p className="text-sm text-theme-pale mb-2 font-bold tracking-wide">建議投入資金 (30%)</p>
-            <p className="text-4xl font-black text-theme-deep">
+          <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center">
+            <p className="text-sm text-slate-500 mb-2 font-bold tracking-wide">建議投入資金 (30%)</p>
+            <p className="text-4xl font-black text-slate-700">
               ${investAmt.toLocaleString(undefined, { maximumFractionDigits: 0 })}
             </p>
           </div>
 
-          <div className="bg-theme-deep text-white p-6 rounded-2xl shadow-xl shadow-blue-900/20 relative overflow-hidden group">
-            <div className="absolute -right-6 -top-6 text-white opacity-10 transform rotate-12 group-hover:rotate-45 transition-transform duration-700">
+          {/* 修改樣式：淺藍底 + 深藍字 (比照快速策略風格) */}
+          <div className="bg-[rgba(92,164,218,0.1)] p-6 rounded-2xl border border-[rgba(92,164,218,0.3)] shadow-sm relative overflow-hidden group hover:scale-[1.01] transition-transform">
+            <div className="absolute -right-6 -top-6 text-theme-pale opacity-20 transform rotate-12">
                <PieChart size={140} />
             </div>
-            <p className="text-blue-200 text-sm mb-3 font-medium">約可購買股數</p>
+            
+            <p className="text-theme-pale text-sm mb-3 font-bold uppercase tracking-wider">約可購買股數</p>
+            
             <div className="flex items-end gap-3 relative z-10">
-              <span className="text-5xl font-bold text-theme-pale">{shares.toLocaleString()}</span>
-              <span className="text-xl text-blue-300 mb-1.5 font-light">股</span>
+              <span className="text-5xl font-bold text-theme-deep">{shares.toLocaleString()}</span>
+              <span className="text-xl text-theme-pale mb-1.5 font-light">股</span>
             </div>
-            <div className="h-px w-full bg-blue-800 my-4"></div>
-            <p className="text-xs text-blue-300 flex items-center gap-2">
-              <span className="bg-blue-800 px-2 py-1 rounded">換算</span>
+            
+            <div className="h-px w-full bg-theme-pale/20 my-4"></div>
+            
+            <p className="text-sm text-theme-deep flex items-center gap-2 font-medium">
+              <span className="bg-white border border-theme-pale/30 text-theme-pale px-2 py-0.5 rounded text-xs">換算</span>
               {Math.floor(shares/1000)} 張 {shares%1000} 股
             </p>
           </div>
@@ -291,12 +305,11 @@ const PositionCalculator = () => {
   );
 };
 
-// --- 功能 3: 快速進出場策略 + 紀律提醒 ---
+// --- 功能 3: 快速進出場策略 ---
 const QuickStrategy = () => {
   const [price, setPrice] = useState('');
   const p = parseFloat(price);
 
-  // 4% 停利, 5% 停損, 10% 停損
   const tpPrice = p ? (p * 1.04).toFixed(2) : '-';
   const slPrice5 = p ? (p * 0.95).toFixed(2) : '-';
   const slPrice10 = p ? (p * 0.90).toFixed(2) : '-';
@@ -307,7 +320,6 @@ const QuickStrategy = () => {
 
       {p ? (
         <div className="space-y-5">
-          {/* Target Cards */}
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-theme-red-light p-5 rounded-2xl border border-theme-red text-center hover:scale-[1.02] transition-transform">
               <div className="text-theme-red text-xs font-bold mb-2 uppercase tracking-wider">停利目標 (+4%)</div>
@@ -319,7 +331,6 @@ const QuickStrategy = () => {
             </div>
           </div>
 
-          {/* Reminder Card */}
           <div className="bg-orange-50/50 border-l-4 border-orange-400 p-5 rounded-r-2xl shadow-sm">
             <h3 className="font-bold text-orange-900 flex items-center gap-2 mb-4">
               <AlertTriangle size={20} className="text-orange-500" />
@@ -362,12 +373,10 @@ const QuickStrategy = () => {
 // --- Shared Components ---
 
 const InputGroup = ({ label, value, setValue, placeholder, theme = "blue", icon }) => {
-  // 根據傳入的 theme props 決定 Input 的邊框與 focus 顏色
-  // 這裡映射到我們自定義的 CSS 變數
   const themeStyles = {
     blue: "focus:ring-[var(--bx-pale-blue)] focus:border-[var(--bx-pale-blue)] bg-slate-50",
     red: "focus:ring-[var(--bx-red)] focus:border-[var(--bx-red)] bg-theme-red-light/30 text-theme-red placeholder-red-200 border-theme-red/30",
-    green: "focus:ring-[var(--bx-green)] focus:border-[var(--bx-green)] bg-theme-green-light/30 text-theme-green placeholder-green-200 border-theme-green/30"
+    green: "focus:ring-[var(--bx-green)] focus:border-[var(--bx-green)] bg-theme-green-light/90 text-theme-green placeholder-green-200 border-theme-green/30"
   };
   
   const inputClass = themeStyles[theme];
