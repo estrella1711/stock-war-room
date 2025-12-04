@@ -1,10 +1,11 @@
 import React from 'react';
 import { 
-  RefreshCcw, 
+  TreePine, 
   Gift, 
   Snowflake, 
   Carrot, 
-  Rabbit 
+  Rabbit,
+  Sprout 
 } from 'lucide-react';
 
 // --- Shared Components ---
@@ -51,13 +52,19 @@ export const InputGroup = ({ label, value, setValue, placeholder, theme = "blue"
 };
 
 export const EmptyState = ({ text, isXmasMode }) => (
-  <div className="flex flex-col items-center justify-center h-56 text-slate-300">
+  <div className="flex flex-col items-center justify-center h-56 text-theme-deep">
     <div className="bg-slate-50 p-6 rounded-full mb-4 animate-pulse relative">
-      <Rabbit size={32} className="text-slate-200" />
-      {isXmasMode ? <div className="absolute -top-1 -right-1 text-theme-red opacity-50"><Gift size={16} /></div> : <div className="absolute -top-1 -right-1 text-orange-400 opacity-50"><Carrot size={16} /></div>}
+       {/* 主要圖示：聖誕模式顯示深綠色松樹，普通模式顯示灰色兔子 */}
+      {isXmasMode ? (
+        <TreePine size={32} className="text-emerald-700" />
+      ) : (
+        <Rabbit size={32} className="text-slate-500" />
+      )}
+      
+      {isXmasMode ? <div className="absolute -top-3 -right-3 text-theme-red opacity-50"><Gift size={20} /></div> : <div className="absolute -top-1 -right-1 text-orange-700 opacity-50"><Carrot size={16} /></div>}
     </div>
     <p className="text-sm font-medium tracking-wide flex items-center gap-2">
-        {text} {isXmasMode ? <Snowflake size={14} className="animate-spin-slow opacity-50"/> : <Rabbit size={14} className="opacity-50"/>}
+        {text} {isXmasMode ? <Snowflake size={20} className="animate-spin-slow text-theme-pale opacity-50"/> : <Sprout size={20} className="text-theme-pale opacity-50"/>}
     </p>
   </div>
 );

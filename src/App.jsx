@@ -116,14 +116,13 @@ const App = () => {
               <h1 className="text-2xl font-bold text-theme-deep flex items-center justify-center gap-3 tracking-wide relative">
                 <TrendingUp className="text-theme-red drop-shadow-sm" size={28} /> 
                 <span>股票風險戰情室</span>
-                {isXmasMode && (
-                  <span className="text-[10px] bg-theme-red text-white px-2 py-0.5 rounded-full absolute -top-3 -right-6 rotate-12 shadow-sm animate-bounce">Xmas</span>
-                )}
+               
               </h1>
             </div>
 
             {/* Navigation Tabs */}
             <div className="flex bg-white border-b border-slate-100">
+             
               <TabButton 
                 isActive={activeTab === 'risk'} 
                 onClick={() => setActiveTab('risk')} 
@@ -149,6 +148,9 @@ const App = () => {
 
             {/* Content Area */}
             <div className="bg-white min-h-[450px] relative">
+                {isXmasMode && (
+                  <span className="text-[10px] bg-theme-red text-white px-2 py-0.5 rounded-full absolute -top-3 -right-6 rotate-12 shadow-sm animate-bounce">Xmas</span>
+                )}
               {activeTab === 'risk' && <RiskCalculator isXmasMode={isXmasMode} />}
               {activeTab === 'position' && <PositionCalculator isXmasMode={isXmasMode} />}
               {activeTab === 'quick' && <QuickStrategy isXmasMode={isXmasMode} />}

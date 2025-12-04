@@ -7,7 +7,8 @@ import {
   Rabbit, 
   Scissors, 
   Skull,
-  Eraser // 新增 Eraser 圖示
+  Sprout,
+  Eraser
 } from 'lucide-react';
 import { InputGroup, EmptyState } from './SharedComponents';
 
@@ -41,8 +42,8 @@ export const QuickStrategy = ({ isXmasMode }) => {
       {/* 標題與清除按鈕區塊 */}
       <div className="space-y-5 relative">
         <div className="flex justify-between items-end mb-2">
-            <span className="text-sm font-bold text-slate-400 flex items-center gap-1">
-              {isXmasMode ? <Gift size={16} className="text-theme-red opacity-70 mb-0.5"/> : <Rabbit size={16} className="text-slate-400 opacity-70 mb-0.5"/>}
+            <span className="text-sm font-bold text-theme-deep flex items-center gap-1">
+              {isXmasMode ? <Gift size={20} className="text-theme-red opacity-70 mb-0.5"/> : <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>}
               交易設定
             </span>
             <button 
@@ -54,7 +55,7 @@ export const QuickStrategy = ({ isXmasMode }) => {
             </button>
         </div>
 
-        <InputGroup label="股票現價" value={price} setValue={setPrice} placeholder="例如: 80" />
+        <InputGroup label="股票現價" value={price} setValue={setPrice} placeholder="100" />
       </div>
 
       {p ? (

@@ -4,12 +4,14 @@ import {
   Wallet, 
   Bell, 
   PieChart, 
-  Carrot 
+  Carrot,
+  Sprout,
+  Eraser
 } from 'lucide-react';
-// [修正] 移除 .jsx 副檔名，確保編譯器能正確解析路徑
-import { InputGroup, EmptyState } from './SharedComponents';
+// [修正] 加上 .jsx 副檔名以確保編譯器能正確解析路徑
+import { InputGroup, EmptyState } from './SharedComponents.jsx';
 
-export const PositionCalculator = ({ isXmasMode }) => {
+const PositionCalculator = ({ isXmasMode }) => {
   const [capital, setCapital] = useState('');
   const [price, setPrice] = useState('');
   
@@ -20,11 +22,34 @@ export const PositionCalculator = ({ isXmasMode }) => {
   const investAmt = capital ? parseFloat(capital) * targetPercent : 0;
   const shares = (price && investAmt) ? Math.floor(investAmt / parseFloat(price)) : 0;
 
+  // 新增：重置功能 (保留總資金)
+  const handleReset = () => {
+    setPrice('');          // 清空股價
+    setInvestPercent(30);  // 重置比例回 30%
+    // setCapital('');     // 不清空總資金，方便連續計算
+  };
+
   return (
     <div className="p-6 md:p-8 space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
-      <div className="space-y-5">
-        <InputGroup label="總資金 (Total Capital)" value={capital} setValue={setCapital} placeholder="例如: 1000000" icon={<Wallet size={18}/>} />
-        <InputGroup label="股票現價 (Stock Price)" value={price} setValue={setPrice} placeholder="例如: 50" />
+      
+      {/* 輸入區塊 (含標題與重置按鈕) */}
+      <div className="space-y-5 relative">
+        <div className="flex justify-between items-end mb-2">
+            <span className="text-sm font-bold text-theme-deep flex items-center gap-1">
+              {isXmasMode ? <Gift size={20} className="text-theme-red opacity-70 mb-0.5"/> : <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>}
+              資金設定
+            </span>
+            <button 
+              onClick={handleReset}
+              className="text-slate-300 hover:text-theme-red transition-colors p-1 hover:bg-theme-red-light rounded-full"
+              title="清除設定 (保留總資金)"
+            >
+              <Eraser size={20} />
+            </button>
+        </div>
+
+        <InputGroup label="總資金 (Total Capital)" value={capital} setValue={setCapital} placeholder="1000000" icon={<Wallet size={18}/>} />
+        <InputGroup label="股票現價 (Stock Price)" value={price} setValue={setPrice} placeholder="100" />
       </div>
 
       {capital && price ? (
@@ -49,7 +74,7 @@ export const PositionCalculator = ({ isXmasMode }) => {
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
                   style={{ accentColor: 'var(--bx-pale-blue)' }}
                 />
-                <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+                <div className="flex justify-between text-[10px] text-theme-deep/30 mt-1 font-mono">
                   <span>1%</span>
                   <span>50%</span>
                   <span>100%</span>

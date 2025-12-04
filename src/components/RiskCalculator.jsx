@@ -5,7 +5,8 @@ import {
   AlertTriangle, 
   Eraser, 
   Gift, 
-  Rabbit 
+  Sprout
+  
 } from 'lucide-react';
 import { InputGroup, EmptyState } from './SharedComponents';
  // --- 功能 1: 風險報酬計算機 ---
@@ -77,8 +78,8 @@ export const RiskCalculator = ({ isXmasMode }) => {
         
         {/* 標題與清除按鈕 */}
         <div className="flex justify-between items-end mb-2">
-            <span className="text-sm font-bold text-slate-400 flex items-center gap-1">
-              {isXmasMode ? <Gift size={16} className="text-theme-red opacity-70 mb-0.5"/> : <Rabbit size={16} className="text-slate-400 opacity-70 mb-0.5"/>}
+            <span className="text-sm font-bold text-theme-deep flex items-center gap-1">
+              {isXmasMode ? <Gift size={20} className="text-theme-red opacity-70 mb-0.5"/> : <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>}
               交易設定
             </span>
             <button 
@@ -120,13 +121,13 @@ export const RiskCalculator = ({ isXmasMode }) => {
            
            <div className="grid grid-cols-2 gap-4 mb-4 relative z-10">
              <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-theme-green">
-               <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Risk (停損)</div>
+               <div className="text-xs text-theme-deep/30 font-medium uppercase tracking-wider">Risk (停損)</div>
                <div className="font-bold text-2xl text-slate-700 mt-1">
                  {results.riskPct}%
                </div>
              </div>
              <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-[var(--bx-red)]">
-               <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Reward (停利)</div>
+               <div className="text-xs text-theme-deep/30 font-medium uppercase tracking-wider">Reward (停利)</div>
                <div className="font-bold text-2xl text-slate-700 mt-1">
                  {results.rewardPct}%
                </div>
