@@ -2,17 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { 
   Calculator, 
   TrendingUp, 
-  TrendingDown, 
-  AlertTriangle, 
   PieChart,
   Target,
-  Wallet,
-  Eraser,
   Gift,       
   Snowflake,  
   Bell,
-  Scissors,   
-  Skull,
   ToggleLeft,  
   ToggleRight,
   Rabbit,
@@ -39,18 +33,16 @@ const App = () => {
       {/* 主容器：根據 isXmasMode 決定是否套用 .xmas-effects */}
       <div className={`theme-base min-h-screen w-full flex flex-col transition-colors duration-300 overflow-hidden relative ${isXmasMode ? 'xmas-effects' : ''}`}>
         
-        {/* === 右上角控制區 === */}
-        <div className="absolute top-4 right-4 z-50 flex flex-col gap-2 items-end">
-          
-          {/* 1. 聖誕模式切換開關 */}
-          <button 
+        {/* === 右上角控制區 聖誕模式切換開關 === */}
+         <div className="absolute bottom-5 right-4 z-50 flex flex-col gap-2 items-end">
+         <button 
             onClick={() => setIsXmasMode(!isXmasMode)}
-            className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md hover:bg-white transition-all text-sm font-bold text-slate-600 border border-slate-200 cursor-pointer active:scale-95 select-none"
+            className="flex items-center gap-1.5 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm hover:bg-white hover:shadow-md transition-all text-[10px] font-bold text-slate-500 border border-slate-200 cursor-pointer active:scale-95 select-none"
           >
-            <span className="text-xs tracking-wider font-mono">{isXmasMode ? 'XMAS ON' : 'XMAS OFF'}</span>
+            <span className="tracking-wider font-mono">{isXmasMode ? 'XMAS ON' : 'XMAS OFF'}</span>
             {isXmasMode ? 
-              <ToggleRight className="text-theme-green fill-theme-green/20" size={24} /> : 
-              <ToggleLeft className="text-slate-300" size={24} />
+              <ToggleRight className="text-theme-green fill-theme-green/20" size={16} /> : 
+              <ToggleLeft className="text-slate-300" size={16} />
             }
           </button>
 

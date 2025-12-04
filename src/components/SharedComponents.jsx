@@ -14,7 +14,6 @@ export const InputGroup = ({ label, value, setValue, placeholder, theme = "blue"
   const themeStyles = {
     blue: "focus:ring-[var(--bx-pale-blue)] focus:border-[var(--bx-pale-blue)] bg-slate-50",
     red: "focus:ring-[var(--bx-red)] focus:border-[var(--bx-red)] bg-theme-red-light/30 text-theme-red placeholder-red-300 border-theme-red/30",
-    // Change placeholder-green-500 to placeholder-[var(--bx-green)]/50
     green: "focus:ring-[var(--bx-green)] focus:border-[var(--bx-green)] bg-theme-green-light/30 text-theme-green placeholder-green-500 border-theme-green/30"
   };
   
@@ -23,7 +22,7 @@ export const InputGroup = ({ label, value, setValue, placeholder, theme = "blue"
   // 一般輸入處理
   const handleInput = (e) => {
     const val = e.target.value;
-    if (val.length > 15) return; 
+    if (val.length > 12) return; 
     if (parseFloat(val) < 0) return;
     setValue(val);
   };
@@ -43,7 +42,7 @@ export const InputGroup = ({ label, value, setValue, placeholder, theme = "blue"
           value={value}
           onChange={handleInput}
           placeholder={placeholder}
-          maxLength={15} 
+          maxLength={12} 
           className={`w-full pl-9 pr-4 py-4 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-opacity-20 text-xl font-bold transition-all shadow-sm ${inputClass} group-hover:shadow-md`}
         />
       </div>
