@@ -11,7 +11,7 @@ import {
 // [修正] 加上 .jsx 副檔名以確保編譯器能正確解析路徑
 import { InputGroup, EmptyState } from './SharedComponents.jsx';
 
-const PositionCalculator = ({ isXmasMode }) => {
+export const PositionCalculator = ({ isXmasMode }) => {
   const [capital, setCapital] = useState('');
   const [price, setPrice] = useState('');
   
