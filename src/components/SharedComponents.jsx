@@ -1,8 +1,5 @@
 import React from 'react';
 import { 
-  TreePine, 
-  Gift, 
-  Snowflake, 
   Carrot, 
   Rabbit,
   Sprout 
@@ -50,20 +47,18 @@ export const InputGroup = ({ label, value, setValue, placeholder, theme = "blue"
   );
 };
 
-export const EmptyState = ({ text, isXmasMode }) => (
+export const EmptyState = ({ text }) => (
   <div className="flex flex-col items-center justify-center h-56 text-theme-deep">
     <div className="bg-slate-50 p-6 rounded-full mb-4 animate-pulse relative">
        {/* 主要圖示：聖誕模式顯示深綠色松樹，普通模式顯示灰色兔子 */}
-      {isXmasMode ? (
-        <TreePine size={32} className="text-emerald-700" />
-      ) : (
+     
         <Rabbit size={32} className="text-slate-500" />
-      )}
       
-      {isXmasMode ? <div className="absolute -top-3 -right-3 text-theme-red opacity-50"><Gift size={20} /></div> : <div className="absolute -top-1 -right-1 text-orange-700 opacity-50"><Carrot size={16} /></div>}
+      
+      <div className="absolute -top-1 -right-1 text-orange-700 opacity-50"><Carrot size={16} /></div>
     </div>
     <p className="text-sm font-medium tracking-wide flex items-center gap-2">
-        {text} {isXmasMode ? <Snowflake size={20} className="animate-spin-slow text-theme-pale opacity-50"/> : <Sprout size={20} className="text-theme-pale opacity-50"/>}
+        {text} <Sprout size={20} className="text-theme-pale opacity-50"/>
     </p>
   </div>
 );

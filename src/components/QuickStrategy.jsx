@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { InputGroup, EmptyState } from './SharedComponents';
 
-export const QuickStrategy = ({ isXmasMode }) => {
+export const QuickStrategy = () => {
   const [price, setPrice] = useState('');
   
   // 自定義百分比狀態
@@ -43,7 +43,7 @@ export const QuickStrategy = ({ isXmasMode }) => {
       <div className="space-y-5 relative">
         <div className="flex justify-between items-end mb-2">
             <span className="text-sm font-bold text-theme-deep flex items-center gap-1">
-              {isXmasMode ? <Gift size={20} className="text-theme-red opacity-70 mb-0.5"/> : <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>}
+             <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>
               交易設定
             </span>
             <button 
@@ -65,8 +65,8 @@ export const QuickStrategy = ({ isXmasMode }) => {
             
             {/* 紅色：停利目標 */}
             <div className="bg-theme-red-light p-4 rounded-2xl border border-theme-red text-center hover:scale-[1.02] transition-transform relative overflow-hidden flex flex-col justify-between">
-              {isXmasMode && <div className="absolute -top-2 -left-2 text-theme-red opacity-10 rotate-45"><Gift size={40}/></div>}
-              {!isXmasMode && <div className="absolute -top-2 -left-2 text-orange-200 opacity-20 rotate-45"><Carrot size={40}/></div>}
+             
+             <div className="absolute -top-2 -left-2 text-orange-200 opacity-20 rotate-45"><Carrot size={40}/></div>
               
               <div className="relative z-10">
                 <div className="text-theme-red text-xs font-bold mb-1 uppercase tracking-wider">停利目標 (+{tpPercent}%)</div>
@@ -91,8 +91,8 @@ export const QuickStrategy = ({ isXmasMode }) => {
 
             {/* 綠色：停損防守 */}
             <div className="bg-theme-green-light p-4 rounded-2xl border border-theme-green text-center hover:scale-[1.02] transition-transform relative overflow-hidden flex flex-col justify-between">
-              {isXmasMode && <div className="absolute -bottom-2 -right-2 text-theme-green opacity-10 -rotate-12"><Snowflake size={50}/></div>}
-              {!isXmasMode && <div className="absolute -bottom-2 -right-2 text-slate-300 opacity-20 -rotate-12"><Rabbit size={50}/></div>}
+              
+             <div className="absolute -bottom-2 -right-2 text-slate-300 opacity-20 -rotate-12"><Rabbit size={50}/></div>
               
               <div className="relative z-10">
                 <div className="text-theme-green text-xs font-bold mb-1 uppercase tracking-wider">停損防守 (-{slPercent}%)</div>
@@ -150,7 +150,7 @@ export const QuickStrategy = ({ isXmasMode }) => {
           </div>
         </div>
       ) : (
-        <EmptyState text="輸入現價以生成操作策略" isXmasMode={isXmasMode} />
+        <EmptyState text="輸入現價以生成操作策略" />
       )}
     </div>
   );

@@ -11,7 +11,7 @@ import {
 // [修正] 加上 .jsx 副檔名以確保編譯器能正確解析路徑
 import { InputGroup, EmptyState } from './SharedComponents.jsx';
 
-export const PositionCalculator = ({ isXmasMode }) => {
+export const PositionCalculator = () => {
   const [capital, setCapital] = useState('');
   const [price, setPrice] = useState('');
   
@@ -36,7 +36,7 @@ export const PositionCalculator = ({ isXmasMode }) => {
       <div className="space-y-5 relative">
         <div className="flex justify-between items-end mb-2">
             <span className="text-sm font-bold text-theme-deep flex items-center gap-1">
-              {isXmasMode ? <Gift size={20} className="text-theme-red opacity-70 mb-0.5"/> : <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>}
+             <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>
               資金設定
             </span>
             <button 
@@ -55,7 +55,7 @@ export const PositionCalculator = ({ isXmasMode }) => {
       {capital && price ? (
         <div className="space-y-4">
           <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center relative overflow-hidden">
-            {isXmasMode && <div className="absolute top-2 left-2 text-theme-gold opacity-40"><Bell size={20} /></div>}
+           
             
             {/* 百分比滑桿控制區 */}
             <div className="mb-4">
@@ -93,7 +93,7 @@ export const PositionCalculator = ({ isXmasMode }) => {
             </div>
             
             <p className="text-theme-pale text-sm mb-3 font-bold uppercase tracking-wider flex items-center gap-1">
-              {isXmasMode ? <Gift size={16} className="mb-1"/> : <Carrot size={16} className="mb-1 text-orange-400"/>} 約可購買股數
+              <Carrot size={16} className="mb-1 text-orange-400"/> 約可購買股數
             </p>
             
             <div className="flex items-end gap-3 relative z-10">
@@ -112,7 +112,7 @@ export const PositionCalculator = ({ isXmasMode }) => {
           </div>
         </div>
       ) : (
-        <EmptyState text="輸入資金與股價以計算部位" isXmasMode={isXmasMode} />
+        <EmptyState text="輸入資金與股價以計算部位" />
       )}
     </div>
   );

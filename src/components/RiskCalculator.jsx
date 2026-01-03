@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { InputGroup, EmptyState } from './SharedComponents';
  // --- 功能 1: 風險報酬計算機 ---
-export const RiskCalculator = ({ isXmasMode }) => {
+export const RiskCalculator = () => {
   const [entryPrice, setEntryPrice] = useState('');
   const [stopLoss, setStopLoss] = useState('');
   const [takeProfit, setTakeProfit] = useState('');
@@ -79,7 +79,7 @@ export const RiskCalculator = ({ isXmasMode }) => {
         {/* 標題與清除按鈕 */}
         <div className="flex justify-between items-end mb-2">
             <span className="text-sm font-bold text-theme-deep flex items-center gap-1">
-              {isXmasMode ? <Gift size={20} className="text-theme-red opacity-70 mb-0.5"/> : <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>}
+              <Sprout size={20} className="text-theme-green opacity-70 mb-0.5"/>
               交易設定
             </span>
             <button 
@@ -101,9 +101,7 @@ export const RiskCalculator = ({ isXmasMode }) => {
 
       {results ? (
         <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 shadow-inner mt-4 relative overflow-hidden">
-           {/* 聖誕裝飾背景 */}
-           {isXmasMode && <div className="absolute -right-4 -top-4 text-theme-pale opacity-5 rotate-12 pointer-events-none"><Snowflake size={100}/></div>}
-
+          
            <div className="flex justify-between items-center mb-4 relative z-10">
               <span className={`text-sm font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm ${
                 direction === 'long' 
@@ -114,7 +112,7 @@ export const RiskCalculator = ({ isXmasMode }) => {
                 {direction === 'long' ? '做多看漲' : '做空看跌'}
               </span>
               <span className="text-sm font-mono font-medium text-slate-500 bg-white px-2 py-1 rounded border border-slate-200 shadow-sm flex items-center gap-1">
-                {isXmasMode && <Gift size={12} className="text-theme-gold" />}
+               
                 R:R = 1 : {results.rrRatio}
               </span>
            </div>
@@ -139,7 +137,7 @@ export const RiskCalculator = ({ isXmasMode }) => {
            </div>
         </div>
       ) : (
-        <EmptyState text="輸入價格計算損益比" isXmasMode={isXmasMode} />
+        <EmptyState text="輸入價格計算損益比"  />
       )}
     </div>
   );
